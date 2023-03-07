@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import LoginForm from "../Login/LoginForm";
 
-function SignInModal() {
+function SignUpModal() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -14,7 +14,7 @@ function SignInModal() {
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Sign In</Modal.Title>
+          <Modal.Title>Sign Up</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <LoginForm />
@@ -34,4 +34,4 @@ function SignInModal() {
 
 // render(<Example />);
 
-export default SignInModal;
+export default SignUpModal;
