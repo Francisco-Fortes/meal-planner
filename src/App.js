@@ -24,11 +24,11 @@ function App() {
     fetchData();
   }, []);
 
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
   return (
     <div className="App">
-      <>
+      {/* <>
         <Button
           onClick={() => setOpen(!open)}
           aria-controls="collapse-card"
@@ -36,35 +36,32 @@ function App() {
         >
           Test
         </Button>
-        <Collapse in={open}>
-          <div id="collapse-card">
-            {recipes.map((recipe, index) => (
-              <Card style={{ width: "18rem" }}>
-                <Card.Img
-                  variant="top"
-                  src="holder.js/100px180?text=Image cap"
-                />
-                <Card.Body>
-                  <Card.Title>{recipe.title}</Card.Title>
-                  <Card.Text>
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </Card.Text>
-                </Card.Body>
-                <ListGroup className="list-group-flush">
-                  <ListGroup.Item>Cras justo odio</ListGroup.Item>
-                  <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                  <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-                </ListGroup>
-                <Card.Body>
-                  <Card.Link href="#">Card Link</Card.Link>
-                  <Card.Link href="#">Another Link</Card.Link>
-                </Card.Body>
-              </Card>
-            ))}
-          </div>
-        </Collapse>
-      </>
+        <Collapse in={open}> */}
+      {/* <div id="collapse-card"> */}
+      {recipes.map((recipe, index) => (
+        <Card style={{ width: "18rem" }}>
+          <Card.Img variant="top" src={recipe.picture} />
+          <Card.Body>
+            <Card.Title>{recipe.title}</Card.Title>
+            <Card.Text>
+              Some quick example text to build on the card title and make up the
+              bulk of the card's content.
+            </Card.Text>
+          </Card.Body>
+          <ListGroup className="list-group-flush">
+            <ListGroup.Item>Cras justo odio</ListGroup.Item>
+            <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
+            <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+          </ListGroup>
+          <Card.Body>
+            <Card.Link href="#">Card Link</Card.Link>
+            <Card.Link href="#">Another Link</Card.Link>
+          </Card.Body>
+        </Card>
+      ))}
+      {/* </div> */}
+      {/* </Collapse> */}
+      {/* </> */}
       {/* <CustomNavbar /> */}
       {/* <LoginForm /> */}
       {/* <Hero />  */}
