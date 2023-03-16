@@ -2,12 +2,14 @@
   text-align: center;
 }
 
-.btn-main-color {
-  background-color: #e88f0b;
+:root {
+  --main-color: #e88f0b;
+  --sec-color: #d7850b;
+  --ter-color: #f8f9fa;
 }
 
-.btn-sec-color {
-  background-color: #f8f9fa;
+img {
+  object-fit: cover;
 }
 
 @media (prefers-reduced-motion: no-preference) {

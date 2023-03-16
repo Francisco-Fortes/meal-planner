@@ -9,6 +9,8 @@ import LoginForm from "./components/Login/LoginForm.jsx";
 import ProfilePage from "./components/Profile/ProfilePage.jsx";
 import { useEffect, useState } from "react";
 import { Button, Card, Collapse, ListGroup } from "react-bootstrap";
+import CollapsiveCard from "./components/CollapsiveCard/CollapsiveCard";
+import RecipeForm from "./components/RecipeForm/RecipeForm";
 
 function App() {
   const [recipes, setRecipes] = useState([]);
@@ -28,6 +30,8 @@ function App() {
 
   return (
     <div className="App">
+      <RecipeForm />
+      <CollapsiveCard recipe={recipes} />
       {/* <>
         <Button
           onClick={() => setOpen(!open)}
@@ -38,7 +42,7 @@ function App() {
         </Button>
         <Collapse in={open}> */}
       {/* <div id="collapse-card"> */}
-      {recipes.map((recipe, index) => (
+      {/* {recipes.map((recipe, index) => (
         <Card style={{ width: "18rem" }}>
           <Card.Img variant="top" src={recipe.picture} />
           <Card.Body>
@@ -58,7 +62,7 @@ function App() {
             <Card.Link href="#">Another Link</Card.Link>
           </Card.Body>
         </Card>
-      ))}
+      ))} */}
       {/* </div> */}
       {/* </Collapse> */}
       {/* </> */}
