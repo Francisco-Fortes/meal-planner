@@ -1,13 +1,35 @@
-import React, { useState } from "react";
-import { Button, Card, Collapse } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Card, Button } from "react-bootstrap";
+import {
+  getRecipesAction,
+  addFavouriteAction,
+  removeFavouriteAction,
+} from "../../redux/actions/index.js";
 
-const CollapsiveCard = ({ recipe }) => {
+const CollapsibleCard = () => {
+  const recipes = useSelector((state) => state.recipe.recipes);
+  const favourites = useSelector((state) => state.favouriteRecipes);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getRecipesAction());
+  }, [dispatch]);
+
   const [open, setOpen] = useState(false);
 
+  const handleAddToFavourites = (recipe) => {
+    dispatch(addFavouriteAction(recipe));
+  };
+
+  const handleRemoveFromFavourites = (recipeId) => {
+    dispatch(removeFavouriteAction(recipeId));
+  };
+
   return (
-    <>
-      {recipe.map((recipe) => (
-        <Card>
+    <div>
+      {recipes.map((recipe) => (
+        <Card key={recipe._id}>
           <Card.Header>
             <Card.Title>{recipe.title}</Card.Title>
             <Button
@@ -16,32 +38,33 @@ const CollapsiveCard = ({ recipe }) => {
               aria-controls="recipe-details"
               aria-expanded={open}
             >
-              {open ? "Hide Details" : "Show Details"}
+              {open ? "Hide Details" : `${recipe.title}`}
             </Button>
           </Card.Header>
-          <Collapse in={open}>
-            <div id="recipe-details">
-              <Card.Body>
-                <Card.Img variant="top" src={recipe.picture} />
-                <Card.Text>{recipe.description}</Card.Text>
-                <Card.Text>
-                  <strong>Ingredients:</strong> {recipe.ingredients.join(", ")}
-                </Card.Text>
-                <Card.Text>
-                  <strong>Instructions:</strong>
-                </Card.Text>
-                {/* <ol>
-                  {recipe.steps.map((step, index) => (
-                    <li key={index}>{step}</li>
-                  ))}
-                </ol> */}
-              </Card.Body>
-            </div>
-          </Collapse>
+          <Card.Body>
+            <Card.Title>{recipe.title}</Card.Title>
+            <Card.Text>{recipe.ingredients}</Card.Text>
+            {favourites &&
+            favourites.some((favourite) => favourite._id === recipe._id) ? (
+              <Button
+                variant="danger"
+                onClick={() => handleRemoveFromFavourites(recipe._id)}
+              >
+                Remove from favourites
+              </Button>
+            ) : (
+              <Button
+                variant="success"
+                onClick={() => handleAddToFavourites(recipe)}
+              >
+                Add to favourites
+              </Button>
+            )}
+          </Card.Body>
         </Card>
       ))}
-    </>
+    </div>
   );
 };
 
-export default CollapsiveCard;
+export default CollapsibleCard;
