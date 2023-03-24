@@ -1,7 +1,6 @@
 html {
   height: 100vh;
   width: 100vw;
-  /* overflow: hidden; */
 }
 
 .login-rounded {
@@ -10,12 +9,12 @@ html {
 
 .login-80p {
   width: 100%;
-  background-color: #04866a;
-  border: none;
+  background-color: #dd890b;
+  border: #dd890b;
 }
 
 .login-80p:hover {
-  background-color: #05614d;
+  background-color: #c07607;
 }
 
 .login-40p {
