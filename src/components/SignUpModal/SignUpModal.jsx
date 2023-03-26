@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
-import LoginForm from "../Login/LoginForm";
+import { Button, Modal } from "react-bootstrap";
+import SignUpForm from "./SignUpForm.jsx";
 
 function SignUpModal() {
   const [show, setShow] = useState(false);
@@ -10,14 +10,14 @@ function SignUpModal() {
   return (
     <>
       <Button variant="warning" onClick={handleShow}>
-        <span className="text-white">Sign In</span>
+        <span className="text-white">Sign Up</span>
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Sign Up</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <LoginForm />
+          <SignUpForm />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -31,7 +31,5 @@ function SignUpModal() {
     </>
   );
 }
-
-// render(<Example />);
 
 export default SignUpModal;
