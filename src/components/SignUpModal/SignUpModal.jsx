@@ -9,24 +9,17 @@ function SignUpModal() {
 
   return (
     <>
-      <Button variant="warning" onClick={handleShow}>
-        <span className="text-white">Sign Up</span>
+      <Button className="main-btn" onClick={handleShow}>
+        <span>Sign Up</span>
       </Button>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Sign Up</Modal.Title>
+        {/* <Modal.Header closeButton> */}
+        <Modal.Header>
+          <Modal.Title className="m-auto">Sign Up</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <SignUpForm />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );
