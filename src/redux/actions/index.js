@@ -5,7 +5,7 @@ export const REMOVE_FAVOURITE = "REMOVE_FAVOURITE";
 export const SAVE_CURRENT_USER = "SAVE_CURRENT_USER";
 
 export const getRecipesAction = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     console.log("Fetching RECIPES from the API");
     try {
       let resp = await fetch(`${process.env.REACT_APP_BE_URL}/recipes`);
@@ -14,6 +14,29 @@ export const getRecipesAction = () => {
         dispatch({
           type: GET_RECIPES,
           payload: fetchedRecipes,
+        });
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getRandomRecipesAction = () => {
+  return async (dispatch) => {
+    console.log("Fetching RECIPES from the API");
+    try {
+      let resp = await fetch(`${process.env.REACT_APP_BE_URL}/recipes`);
+      if (resp.ok) {
+        let fetchedRecipes = await resp.json();
+        const randomFetchedRecipes = fetchedRecipes
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 10);
+        dispatch({
+          type: GET_RECIPES,
+          payload: randomFetchedRecipes,
         });
       } else {
         console.log("error");
@@ -122,6 +145,30 @@ export const createUserAction = (userData) => {
         window.location.replace("http://localhost:3000/profile");
       } else {
         console.log("Error creating new user.");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const editUserAction = (userData) => {
+  return async (dispatch) => {
+    try {
+      const accessToken = localStorage.getItem("UserAccessToken");
+      const token = accessToken.split('"').join("");
+      let response = await fetch("http://localhost:3001/users/me", {
+        method: "PUT",
+        body: JSON.stringify(userData),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.ok) {
+        dispatch(fetchCurrentUser());
+      } else {
+        console.log("There was an error updating the information");
       }
     } catch (err) {
       console.log(err);
