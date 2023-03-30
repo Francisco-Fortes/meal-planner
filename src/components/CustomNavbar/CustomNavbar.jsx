@@ -4,7 +4,7 @@ import SignInModal from "../SignInModal/SignInModal.jsx";
 import SignUpModal from "../SignUpModal/SignUpModal.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { removeCurrentUser } from "../../redux/actions";
-
+import PlanEatLogo from "./EAT.jpg";
 function CustomNavbar() {
   const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
@@ -17,7 +17,9 @@ function CustomNavbar() {
   return (
     <Navbar collapseOnSelect className="main-color" expand="lg" variant="dark">
       <Container>
-        <Navbar.Brand href="#home">APP-NAME</Navbar.Brand>
+        <Navbar.Brand href="#home">
+          <img src={PlanEatLogo} alt="PlanEat-logo" className="logo" />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto"></Nav>
