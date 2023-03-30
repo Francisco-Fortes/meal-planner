@@ -1,3 +1,7 @@
 .hero-frame {
-  height: 20vh;
+  height: 60vh;
+  background-image: url("background4.jpg");
+  background-size: cover;
+  background-position: center;
+  border-top: solid 4px white;
 }
