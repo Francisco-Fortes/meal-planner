@@ -1,17 +1,19 @@
-import { Col, Container, Row } from "react-bootstrap";
-import CollapsibleCard from "../CollapsibleCard/CollapsibleCard";
-import CustomCarousel from "../CustomCarousel/CustomCarousel";
-
+import "../text-section.css";
+import { Container, Row } from "react-bootstrap";
+import Hero from "../Hero/Hero";
+import TextSection from "../TextSection";
+import StepsSection from "../StepsSection";
 const MainLayout = () => {
   return (
-    <Container>
+    <Container fluid className="text-section">
       <Row>
-        <Col>
-          <CustomCarousel />
-        </Col>
+        <Hero />
       </Row>
-      <Row>
-        <CollapsibleCard />
+      <Row className="justify-content-start align-items-center">
+        <TextSection />
+      </Row>
+      <Row className="justify-content-center py-5">
+        <StepsSection />
       </Row>
     </Container>
   );
