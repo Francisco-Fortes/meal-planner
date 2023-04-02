@@ -1,0 +1,51 @@
+.recipe-page-container {
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.recipe-card {
+  width: 30rem;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+
+.recipe-image {
+  height: 20rem;
+  background-repeat: no-repeat;
+}
+
+.recipe-title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.recipe-author {
+  font-size: 1rem;
+  color: #6c757d;
+  margin-bottom: 2rem;
+}
+
+.recipe-shared {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.recipe-ingredient-list {
+  margin-bottom: 2rem;
+}
+
+.recipe-ingredient {
+  margin-bottom: 0.5rem;
+}
+
+.recipe-steps {
+  margin-bottom: 2rem;
+}
+
+.recipe-step {
+  margin-bottom: 0.5rem;
+}
+
+.recipe-nutrition-data {
+  margin-bottom: 2rem;
+}

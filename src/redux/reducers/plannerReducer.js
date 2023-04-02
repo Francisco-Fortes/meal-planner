@@ -1,7 +1,7 @@
 import { GET_PLANNER, SAVE_PLANNER } from "../actions/index.js";
 import { GET_PLANNERS } from "../actions/index.js";
 const initialState = {
-  planner: [],
+  planner: {},
   planners: [],
 };
 

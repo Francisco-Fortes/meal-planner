@@ -1,69 +1,42 @@
+import "../profile-form.css";
+import "./collapsible-card.css";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Card, Button } from "react-bootstrap";
-import {
-  getRecipesAction,
-  addFavouriteAction,
-  removeFavouriteAction,
-} from "../../redux/actions/index.js";
+import { Badge, Button, Card, Col, Container, Row } from "react-bootstrap";
+import { getRecipesAction } from "../../redux/actions/index.js";
+import { Link } from "react-router-dom";
 
 const CollapsibleCard = () => {
-  const recipes = useSelector((state) => state.recipe.recipes);
-  const favourites = useSelector((state) => state.favouriteRecipes);
+  const recipes = useSelector((state) => state.recipe?.recipes);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getRecipesAction());
-  }, [dispatch]);
-
-  const [open, setOpen] = useState(false);
-
-  const handleAddToFavourites = (recipe) => {
-    dispatch(addFavouriteAction(recipe));
-  };
-
-  const handleRemoveFromFavourites = (recipeId) => {
-    dispatch(removeFavouriteAction(recipeId));
-  };
+  }, []);
 
   return (
-    <div>
-      {recipes.map((recipe) => (
-        <Card key={recipe._id}>
-          <Card.Header>
-            <Card.Title>{recipe.title}</Card.Title>
-            <Button
-              variant="primary"
-              onClick={() => setOpen(!open)}
-              aria-controls="recipe-details"
-              aria-expanded={open}
-            >
-              {open ? "Hide Details" : `${recipe.title}`}
-            </Button>
-          </Card.Header>
-          <Card.Body>
-            <Card.Title>{recipe.title}</Card.Title>
-            <Card.Text>{recipe.ingredients}</Card.Text>
-            {favourites &&
-            favourites.some((favourite) => favourite._id === recipe._id) ? (
-              <Button
-                variant="danger"
-                onClick={() => handleRemoveFromFavourites(recipe._id)}
-              >
-                Remove from favourites
-              </Button>
-            ) : (
-              <Button
-                variant="success"
-                onClick={() => handleAddToFavourites(recipe)}
-              >
-                Add to favourites
-              </Button>
-            )}
-          </Card.Body>
-        </Card>
-      ))}
-    </div>
+    <Container>
+      <h2>RECIPES</h2>
+      <Row>
+        {recipes.map((recipe) => (
+          <Col key={recipe._id} className="m-2">
+            <Card style={{ width: "14rem" }}>
+              <div className="rel">
+                <Card.Img variant="top" src={recipe.picture} />
+                <Badge className="card-badge abs-tr p-1">SHARED</Badge>
+                <div className="card-container abs-b pb-1">
+                  <Card.Title>{recipe.title}</Card.Title>
+                  <Card.Text>
+                    {recipe.cookingTime.value} {recipe.cookingTime.unit}
+                  </Card.Text>
+                </div>
+              </div>
+              <Link to={`/recipe/${recipe._id}`}>View Recipe</Link>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </Container>
   );
 };
 
