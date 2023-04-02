@@ -11,7 +11,7 @@ function RecipePage() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getRecipeAction(recipeId));
-  }, [recipeId]);
+  }, []);
 
   if (!recipe) {
     return <div>We are getting your recipe...</div>;
@@ -52,25 +52,32 @@ function RecipePage() {
             </ListGroup.Item>
             <ListGroup.Item>
               <h6>Nutrition Data</h6>
-              <p>{recipe.nutritionData.calories} kcal</p>
-              <p>
-                {`${
-                  recipe.nutritionData.totalNutrientsKCal.CHOCDF_KCAL.quantity /
-                  recipe.servings
-                } kcal of CARBOHYDRATES per serving`}
-              </p>
-              <p>
-                {`${
-                  recipe.nutritionData.totalNutrientsKCal.FAT_KCAL.quantity /
-                  recipe.servings
-                } kcal of FATS per serving`}
-              </p>
-              <p>
-                {`${
-                  recipe.nutritionData.totalNutrientsKCal.PROCNT_KCAL.quantity /
-                  recipe.servings
-                } kcal of PROTEINS per serving`}
-              </p>
+              {recipe.nutritionData ? (
+                <>
+                  <p>{recipe.nutritionData.calories} kcal</p>
+                  <p>
+                    {`${
+                      recipe.nutritionData.totalNutrientsKCal.CHOCDF_KCAL
+                        .quantity / recipe.servings
+                    } kcal of CARBOHYDRATES per serving`}
+                  </p>
+                  <p>
+                    {`${
+                      recipe.nutritionData.totalNutrientsKCal.FAT_KCAL
+                        .quantity / recipe.servings
+                    } kcal of FATS per serving`}
+                  </p>
+                  <p>
+                    {`${
+                      recipe.nutritionData.totalNutrientsKCal.PROCNT_KCAL
+                        .quantity / recipe.servings
+                    } kcal of PROTEINS per serving`}
+                  </p>
+                </>
+              ) : (
+                //WIP: PLACEHOLDER - Need to correct the logic
+                <p>Log in to be able to see the data</p>
+              )}
             </ListGroup.Item>
 
             <ListGroup.Item>
