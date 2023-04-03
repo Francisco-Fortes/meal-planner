@@ -3,6 +3,11 @@ export const ADD_RECIPES = "ADD_RECIPES";
 export const ADD_FAVOURITE = "ADD_FAVOURITE";
 export const REMOVE_FAVOURITE = "REMOVE_FAVOURITE";
 export const SAVE_CURRENT_USER = "SAVE_CURRENT_USER";
+export const SAVE_PLANNER = "SAVE_PLANNER";
+export const FETCH_ALL_PLANNERS = "FETCH_ALL_PLANNERS";
+export const GET_PLANNERS = "GET_PLANNERS";
+export const GET_PLANNER = "GET_PLANNER";
+export const GET_RECIPE = "GET_RECIPE";
 
 export const getRecipesAction = () => {
   return async (dispatch) => {
@@ -15,6 +20,30 @@ export const getRecipesAction = () => {
           type: GET_RECIPES,
           payload: fetchedRecipes,
         });
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getRecipeAction = (recipeId) => {
+  return async (dispatch) => {
+    console.log(`Fetching recipe with ID ${recipeId} from the API`);
+    console.log(recipeId);
+    try {
+      let resp = await fetch(
+        `${process.env.REACT_APP_BE_URL}/recipes/${recipeId}`
+      );
+      if (resp.ok) {
+        let fetchedRecipe = await resp.json();
+        dispatch({
+          type: GET_RECIPE,
+          payload: fetchedRecipe,
+        });
+        console.log(fetchedRecipe);
       } else {
         console.log("error");
       }
@@ -184,48 +213,180 @@ export const removeCurrentUser = () => {
   };
 };
 
-// export const addRecipeAction = () => {
-//   return async (dispatch, getState) => {
-//     console.log("Posting a new recipe");
-//     try {
-//       let resp = await fetch(`${process.env.REACT_APP_BE_URL}/recipes`);
-//       if (resp.ok) {
-//         let fetchedRecipes = await resp.json();
-//         dispatch({
-//           type: GET_RECIPES,
-//           payload: fetchedRecipes,
-//         });
-//       } else {
-//         console.log("error");
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-// };
+export const addRecipeAction = (recipeData) => {
+  return async (dispatch, getState) => {
+    console.log("Posting a new recipe");
+    try {
+      const accessToken = localStorage.getItem("UserAccessToken");
+      const token = accessToken.split('"').join("");
+      let response = await fetch("http://localhost:3001/recipes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(recipeData),
+      });
+      if (response.ok) {
+        let addedRecipe = await response.json();
+        dispatch({
+          type: ADD_RECIPES,
+          payload: addedRecipe,
+        });
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 
-// export const fetchUserserRecipes = () => {
-//   console.log("fetchUserserRecipes is called");
+export const fetchUserserRecipes = () => {
+  console.log("fetchUserserRecipes is called");
+  return async (dispatch, getState) => {
+    try {
+      const accessToken = localStorage.getItem("UserAccessToken");
+      const token = accessToken.split('"').join("");
+      let response = await fetch("http://localhost:3001/users/me", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.ok) {
+        let userData = await response.json();
+        console.log("userData", userData);
+        dispatch({
+          type: SAVE_CURRENT_USER,
+          payload: userData,
+        });
+        console.log("updated state", getState());
+      } else {
+        console.log("There was an issue while fetching your data");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const createPlannerAction = (plannerData) => {
+  return async (dispatch) => {
+    try {
+      const accessToken = localStorage.getItem("UserAccessToken");
+      const token = accessToken.split('"').join("");
+      let response = await fetch("http://localhost:3001/planners", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(plannerData),
+      });
+      console.log(plannerData);
+      if (response.ok) {
+        await response.json();
+        dispatch({
+          type: SAVE_PLANNER,
+          payload: plannerData,
+        });
+        console.log(plannerData);
+        console.log("New planer created successfully!");
+        await dispatch(getPlannersAction());
+      } else {
+        console.log("Error creating a new planner.");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const getPlannersAction = () => {
+  return async (dispatch, getState) => {
+    try {
+      const accessToken = localStorage.getItem("UserAccessToken");
+      const token = accessToken.split('"').join("");
+      let response = await fetch("http://localhost:3001/planners", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.ok) {
+        let plannerData = await response.json();
+        console.log("plannerData from planners endpoint", plannerData);
+        dispatch({
+          type: GET_PLANNERS,
+          payload: plannerData,
+        });
+        console.log("updated state", getState());
+      } else {
+        console.log("There was an issue loading the planners");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const getPlannerAction = (plannerId) => {
+  return async (dispatch) => {
+    try {
+      const accessToken = localStorage.getItem("UserAccessToken");
+      const token = accessToken.split('"').join("");
+      let response = await fetch(
+        `http://localhost:3001/planners/${plannerId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        let plannerData = await response.json();
+        console.log("plannerData from getPlannerAction", plannerData);
+        dispatch({
+          type: GET_PLANNER,
+          payload: plannerData,
+        });
+      } else {
+        console.log("There was an issue loading the planner");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+// export const getCurrentPlanner = () => {
+//   console.log("getCurrentPlanner is called");
 //   return async (dispatch, getState) => {
 //     try {
 //       const accessToken = localStorage.getItem("UserAccessToken");
 //       const token = accessToken.split('"').join("");
-//       let response = await fetch("http://localhost:3001/users/me", {
-//         method: "GET",
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       });
+//       let response = await fetch(
+//         // `http://localhost:3001/planners/${plannerId}`,
+//         {
+//           method: "GET",
+//           headers: {
+//             Authorization: `Bearer ${token}`,
+//           },
+//         }
+//       );
 //       if (response.ok) {
-//         let userData = await response.json();
-//         console.log("userData", userData);
+//         let plannerData = await response.json();
+//         console.log("plannerData", plannerData);
 //         dispatch({
-//           type: SAVE_CURRENT_USER,
-//           payload: userData,
+//           type: SAVE_PLANNER,
+//           payload: plannerData,
 //         });
-//         console.log("updated state", getState()); // add this line to log the updated state
+//         console.log("updated state", getState());
 //       } else {
-//         console.log("There was an issue while fetching your data");
+//         console.log("There was an issue loading the planner");
 //       }
 //     } catch (err) {
 //       console.log(err);
