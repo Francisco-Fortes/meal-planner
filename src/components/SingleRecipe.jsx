@@ -56,22 +56,22 @@ function RecipePage() {
                 <>
                   <p>{recipe.nutritionData.calories} kcal</p>
                   <p>
-                    {`${
+                    {`${Math.floor(
                       recipe.nutritionData.totalNutrientsKCal.CHOCDF_KCAL
                         .quantity / recipe.servings
-                    } kcal of CARBOHYDRATES per serving`}
+                    )} kcal of CARBOHYDRATES per serving`}
                   </p>
                   <p>
-                    {`${
+                    {`${Math.floor(
                       recipe.nutritionData.totalNutrientsKCal.FAT_KCAL
                         .quantity / recipe.servings
-                    } kcal of FATS per serving`}
+                    )} kcal of FATS per serving`}
                   </p>
                   <p>
-                    {`${
+                    {`${Math.floor(
                       recipe.nutritionData.totalNutrientsKCal.PROCNT_KCAL
                         .quantity / recipe.servings
-                    } kcal of PROTEINS per serving`}
+                    )} kcal of PROTEINS per serving`}
                   </p>
                 </>
               ) : (
