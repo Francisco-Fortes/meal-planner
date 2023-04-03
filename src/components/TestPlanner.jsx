@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Table } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createPlannerAction,
   getPlannersAction,
   getPlannerAction,
 } from "../redux/actions/index.js";
+import MealPlannerCard from "./MealPlanner/MealPlannerCard.jsx";
 
 const TestPlanner = () => {
-  const planners = useSelector((state) => state.planner.plannerData);
+  const planners = useSelector((state) => state.planner.planners);
   const planner = useSelector((state) => state.planner.planner);
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
@@ -55,79 +56,181 @@ const TestPlanner = () => {
       </div>
 
       <div>
-        {planners.map((planner) => (
-          <div
-            key={planner._id}
-            onClick={() => handleGetPlannerById(planner._id)}
-          >
-            {planner.title}
-          </div>
-        ))}
+        {planners && planners.length > 0 ? (
+          <ul>
+            {planners &&
+              planners.map((planner) => (
+                <li
+                  key={planner._id}
+                  onClick={() => handleGetPlannerById(planner._id)}
+                >
+                  {planner.title}
+                </li>
+              ))}
+          </ul>
+        ) : (
+          <div>User has not created any plan</div>
+        )}
       </div>
-
-      {selectedPlannerId && (
+      {selectedPlannerId && planner && (
         <div>
-          <h2>{planner.title}</h2>
-          <Table responsive="sm">
-            <thead>
-              <tr>
-                <th>Monday</th>
-                <th>Tuesday</th>
-                <th>Wednesday</th>
-                <th>Thursday</th>
-                <th>Friday</th>
-                <th>Saturday</th>
-                <th>Sunday</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{planner.Monday[0]}</td>
-                <td>{planner.Tuesday[0]}</td>
-                <td>{planner.Wednesday[0]}</td>
-                <td>{planner.Thursday[0]}</td>
-                <td>{planner.Friday[0]}</td>
-                <td>{planner.Saturday[0]}</td>
-                <td>{planner.Sunday[0]}</td>
-              </tr>
-              <tr>
-                <td>{planner.Monday[1]}</td>
-                <td>{planner.Tuesday[1]}</td>
-                <td>{planner.Wednesday[1]}</td>
-                <td>{planner.Thursday[1]}</td>
-                <td>{planner.Friday[1]}</td>
-                <td>{planner.Saturday[1]}</td>
-                <td>{planner.Sunday[1]}</td>
-              </tr>
-              <tr>
-                <td>{planner.Monday[2]}</td>
-                <td>{planner.Tuesday[2]}</td>
-                <td>{planner.Wednesday[2]}</td>
-                <td>{planner.Thursday[2]}</td>
-                <td>{planner.Friday[2]}</td>
-                <td>{planner.Saturday[2]}</td>
-                <td>{planner.Sunday[2]}</td>
-              </tr>
-              <tr>
-                <td>{planner.Monday[3]}</td>
-                <td>{planner.Tuesday[3]}</td>
-                <td>{planner.Wednesday[3]}</td>
-                <td>{planner.Thursday[3]}</td>
-                <td>{planner.Friday[3]}</td>
-                <td>{planner.Saturday[3]}</td>
-                <td>{planner.Sunday[3]}</td>
-              </tr>
-              <tr>
-                <td>{planner.Monday[4]}</td>
-                <td>{planner.Tuesday[4]}</td>
-                <td>{planner.Wednesday[4]}</td>
-                <td>{planner.Thursday[4]}</td>
-                <td>{planner.Friday[4]}</td>
-                <td>{planner.Saturday[4]}</td>
-                <td>{planner.Sunday[4]}</td>
-              </tr>
-            </tbody>
-          </Table>
+          <h2 key={planner._id}>{planner.title}</h2>
+          <ListGroup>
+            <ListGroup.Item>
+              <h5>Monday</h5>
+              <ul>
+                {planner.Monday.map((recipe) => (
+                  <li key={recipe._id}>
+                    <MealPlannerCard recipe={recipe} />
+                  </li>
+                ))}
+              </ul>
+              <span>
+                {/* WIP: Calories per serving field BE */}
+                Total Calories:
+                {planner.Monday.reduce(
+                  (totalCalories, recipe) =>
+                    totalCalories +
+                    Math.floor(
+                      recipe.nutritionData?.calories / recipe.servings
+                    ),
+                  0
+                )}
+              </span>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <h5>Tuesday</h5>
+              <ul>
+                {planner.Tuesday.map((recipe) => (
+                  <li key={recipe._id}>
+                    <MealPlannerCard recipe={recipe} />
+                  </li>
+                ))}
+              </ul>
+              <span>
+                {/* WIP: Calories per serving field BE */}
+                Total Calories:
+                {planner.Tuesday.reduce(
+                  (totalCalories, recipe) =>
+                    totalCalories +
+                    Math.floor(
+                      recipe.nutritionData?.calories / recipe.servings
+                    ),
+                  0
+                )}
+              </span>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <h5>Wednesday</h5>
+              <ul>
+                {planner.Wednesday.map((recipe) => (
+                  <li key={recipe._id}>
+                    <MealPlannerCard recipe={recipe} />
+                  </li>
+                ))}
+              </ul>
+              <span>
+                {/* WIP: Calories per serving field BE */}
+                Total Calories:
+                {planner.Wednesday.reduce(
+                  (totalCalories, recipe) =>
+                    totalCalories +
+                    Math.floor(
+                      recipe.nutritionData?.calories / recipe.servings
+                    ),
+                  0
+                )}
+              </span>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <h5>Thursday</h5>
+              <ul>
+                {planner.Thursday.map((recipe) => (
+                  <li key={recipe._id}>
+                    <MealPlannerCard recipe={recipe} />
+                  </li>
+                ))}
+              </ul>
+              <span>
+                {/* WIP: Calories per serving field BE */}
+                Total Calories:
+                {planner.Thursday.reduce(
+                  (totalCalories, recipe) =>
+                    totalCalories +
+                    Math.floor(
+                      recipe.nutritionData?.calories / recipe.servings
+                    ),
+                  0
+                )}
+              </span>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <h5>Friday</h5>
+              <ul>
+                {planner.Friday.map((recipe) => (
+                  <li key={recipe._id}>
+                    <MealPlannerCard recipe={recipe} />
+                  </li>
+                ))}
+              </ul>
+              <span>
+                {/* WIP: Calories per serving field BE */}
+                Total Calories:
+                {planner.Friday.reduce(
+                  (totalCalories, recipe) =>
+                    totalCalories +
+                    Math.floor(
+                      recipe.nutritionData?.calories / recipe.servings
+                    ),
+                  0
+                )}
+              </span>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <h5>Saturday</h5>
+              <ul>
+                {planner.Saturday.map((recipe) => (
+                  <li key={recipe._id}>
+                    <MealPlannerCard recipe={recipe} />
+                  </li>
+                ))}
+              </ul>
+              <span>
+                {/* WIP: Calories per serving field BE */}
+                Total Calories:
+                {planner.Saturday.reduce(
+                  (totalCalories, recipe) =>
+                    totalCalories +
+                    Math.floor(
+                      recipe.nutritionData?.calories / recipe.servings
+                    ),
+                  0
+                )}
+              </span>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <h5>Sunday</h5>
+              <ul>
+                {planner.Sunday.map((recipe) => (
+                  <li key={recipe._id}>
+                    <MealPlannerCard recipe={recipe} />
+                  </li>
+                ))}
+              </ul>
+              <span>
+                {/* WIP: Calories per serving field BE */}
+                Total Calories:
+                {planner.Sunday.reduce(
+                  (totalCalories, recipe) =>
+                    totalCalories +
+                    Math.floor(
+                      recipe.nutritionData?.calories / recipe.servings
+                    ),
+                  0
+                )}
+              </span>
+            </ListGroup.Item>
+          </ListGroup>
         </div>
       )}
     </>
