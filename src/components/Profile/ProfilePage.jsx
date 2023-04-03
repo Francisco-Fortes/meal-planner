@@ -5,8 +5,11 @@ import { useSelector } from "react-redux";
 import { FaPencilAlt } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
 import { GrNotes } from "react-icons/gr";
+import ProfileRecipeCard from "../ProfileRecipe";
+import RecipeCard from "../RecipeCard";
+import CollapsibleCard from "../CollapsibleCard/CollapsibleCard";
 
-function ProfilePage() {
+const ProfilePage = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -85,32 +88,9 @@ function ProfilePage() {
               </p>
             </div>
             <Row xs={10}>
-              <Col md={4}>
-                <img
-                  src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"
-                  alt="unplash-recipe-2"
-                  className="rounded-5"
-                  style={{ width: 300, height: 200 }}
-                />
-              </Col>
-              <Col md={4}>
-                <img
-                  src="https://images.unsplash.com/photo-1596818531679-96ef98b9a497?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHJlY2lwZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60"
-                  alt="unplash-recipe-2"
-                  className="rounded-5"
-                  style={{ width: 300, height: 200 }}
-                />
-              </Col>
-              <Col md={4}>
-                <img
-                  src="https://images.unsplash.com/photo-1485921325833-c519f76c4927?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHJlY2lwZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60"
-                  alt="unplash-recipe-3"
-                  className="rounded-5"
-                  style={{ width: 300, height: 200 }}
-                />
-              </Col>
+              <CollapsibleCard />
             </Row>
-            <div className="d-flex justify-content-between align-items-center mb-4">
+            {/* <div className="d-flex justify-content-between align-items-center mb-4">
               <p className="lead fw-bold mb-0">My favourites</p>
               <p className="mb-0">
                 <a href="#View more" className="text-muted">
@@ -143,12 +123,12 @@ function ProfilePage() {
                   style={{ width: 300, height: 200 }}
                 />
               </Col>
-            </Row>
+            </Row> */}
           </Row>
         </Col>
       </Row>
     </Container>
   );
-}
+};
 
 export default ProfilePage;
