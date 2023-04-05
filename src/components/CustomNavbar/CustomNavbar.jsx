@@ -17,13 +17,16 @@ function CustomNavbar() {
   return (
     <Navbar collapseOnSelect className="main-color" expand="lg" variant="dark">
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/">
           <img src={PlanEatLogo} alt="PlanEat-logo" className="logo" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto"></Nav>
-          <Nav>
+          <Nav className="me-auto">
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/planner">Planner</Nav.Link>
+            <Nav.Link href="/profile">Profile</Nav.Link>
+            <Nav.Link href="/recipeForm">Recipes</Nav.Link>
             {currentUser.email ? (
               <Nav.Item>
                 <Button className="main-btn" onClick={handleLogout}>
@@ -48,16 +51,3 @@ function CustomNavbar() {
 }
 
 export default CustomNavbar;
-
-// {/* <Nav.Item href="#SearchModal">
-//   <svg
-//     xmlns="http://www.w3.org/2000/svg"
-//     width="16"
-//     height="16"
-//     fill="currentColor"
-//     className="bi bi-search"
-//     viewBox="0 0 16 16"
-//   >
-//     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-//   </svg>
-// </Nav.Item> */}
