@@ -1,5 +1,5 @@
 import "../profile-form.css";
-import "./collapsible-card.css";
+import "./mini-card.css";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Badge, Card, Col, Container, Row } from "react-bootstrap";
