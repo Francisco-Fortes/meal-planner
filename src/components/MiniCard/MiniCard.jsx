@@ -6,7 +6,7 @@ import { Badge, Card, Col, Container, Row } from "react-bootstrap";
 import { getRecipesAction } from "../../redux/actions/index.js";
 import { Link } from "react-router-dom";
 
-const CollapsibleCard = ({ propsTitle }) => {
+const MiniCard = ({ propsTitle }) => {
   const recipes = useSelector((state) => state.recipe?.recipes);
   const dispatch = useDispatch();
 
@@ -42,4 +42,4 @@ const CollapsibleCard = ({ propsTitle }) => {
   );
 };
 
-export default CollapsibleCard;
+export default MiniCard;
