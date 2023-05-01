@@ -1,5 +1,6 @@
-.card {
-  color: red;
+.card:hover {
+  box-shadow: 0px 0px 49px -14px var(--main-color, 0.56);
+  color: var(--main-color);
 }
 
 .card-img-container {
