@@ -5,9 +5,7 @@ import { useSelector } from "react-redux";
 import { FaPencilAlt } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
 import { GrNotes } from "react-icons/gr";
-import ProfileRecipeCard from "../ProfileRecipe";
-import RecipeCard from "../RecipeCard";
-import CollapsibleCard from "../CollapsibleCard/CollapsibleCard";
+import MiniCard from "../MiniCard/MiniCard";
 
 const ProfilePage = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -88,7 +86,7 @@ const ProfilePage = () => {
               </p>
             </div>
             <Row xs={10}>
-              <CollapsibleCard />
+              <MiniCard />
             </Row>
             {/* <div className="d-flex justify-content-between align-items-center mb-4">
               <p className="lead fw-bold mb-0">My favourites</p>
