@@ -1,7 +1,15 @@
 .navbar {
-  height: 5vh;
+  height: 8vh;
 }
 
 .main-color {
-  background-color: #e88f0b;
+  /* background-color: #e88f0b; */
+  background-color: #f1bc6d;
+  /* background-color: var(--backg-color); */
+}
+
+.logo {
+  height: 50px;
+  width: 100px;
+  border-radius: 50px;
 }

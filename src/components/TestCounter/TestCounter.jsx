@@ -7,7 +7,7 @@ import {
   removeFavouriteAction,
 } from "../../redux/actions/index.js";
 
-const CollapsibleCard = () => {
+const TestCounter = () => {
   const recipes = useSelector((state) => state.recipe.recipes);
   const favourites = useSelector((state) => state.favouriteRecipes);
   const dispatch = useDispatch();
@@ -26,8 +26,11 @@ const CollapsibleCard = () => {
     dispatch(removeFavouriteAction(recipeId));
   };
 
+  const favoriteCount = favourites.length;
+
   return (
     <div>
+      <h2>Favorites: {favoriteCount}</h2>
       {recipes.map((recipe) => (
         <Card key={recipe._id}>
           <Card.Header>
@@ -42,6 +45,7 @@ const CollapsibleCard = () => {
             </Button>
           </Card.Header>
           <Card.Body>
+            <img src={recipe.image} alt={recipe.title} />
             <Card.Title>{recipe.title}</Card.Title>
             <Card.Text>{recipe.ingredients}</Card.Text>
             {favourites &&
@@ -67,4 +71,4 @@ const CollapsibleCard = () => {
   );
 };
 
-export default CollapsibleCard;
+export default TestCounter;

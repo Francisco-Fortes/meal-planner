@@ -1,7 +1,7 @@
 import { ADD_RECIPES } from "../actions/index.js";
 
 const initialState = {
-  addedRecipes: [],
+  addedRecipe: {},
 };
 
 const addRecipeReducer = (state = initialState, action) => {

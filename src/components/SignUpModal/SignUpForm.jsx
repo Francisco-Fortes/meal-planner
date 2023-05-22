@@ -1,72 +1,70 @@
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { createUserAction } from "../../redux/actions/index.js";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createUserAction } from "../../redux/actions/index.js";
 
 const SignUpForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [avatar, setAvatar] = useState("");
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const userData = { firstName, lastName, email, password, avatar };
+    const userData = { firstName, lastName, email, password };
     dispatch(createUserAction(userData));
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        First Name:
-        <input
-          type="text"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Last Name:
-        <input
-          type="text"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Email:
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </label>
-      <br />
-      <label>
-        Password:
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </label>
-      <br />
-      <label>
-        Avatar:
-        <input
-          type="text"
-          value={avatar}
-          onChange={(e) => setAvatar(e.target.value)}
-        />
-      </label>
-      <br />
-      <button type="submit">Sign Up</button>
-    </form>
+    <Container className="">
+      <Row className="d-flex justify-content-center">
+        <Col md="7" className="mt-0">
+          <h2 className="text-center">APP-LOGO</h2>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3">
+              <Form.Label className="fw-bold">First Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="First Name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label className="fw-bold">Last Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Last Name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label className="fw-bold">Email</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label className="fw-bold">Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Form.Group>
+            <Button className="main-btn mb-4 fw-bold" type="submit">
+              SIGN UP
+            </Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
