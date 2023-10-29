@@ -8,6 +8,9 @@ export const FETCH_ALL_PLANNERS = "FETCH_ALL_PLANNERS";
 export const GET_PLANNERS = "GET_PLANNERS";
 export const GET_PLANNER = "GET_PLANNER";
 export const GET_RECIPE = "GET_RECIPE";
+export const DELETE_PLANNER = "DELETE_PLANNER";
+export const RENAME_PLANNER = "RENAME_PLANNER";
+export const DUPLICATE_PLANNER = "DUPLICATE_PLANNER";
 
 export const getRecipesAction = () => {
   return async (dispatch) => {
@@ -362,6 +365,115 @@ export const getPlannerAction = (plannerId) => {
   };
 };
 
+export const deletePlannerAction = (plannerId) => {
+  return async (dispatch) => {
+    try {
+      const accessToken = localStorage.getItem("UserAccessToken");
+      const token = accessToken.split('"').join("");
+
+      const response = await fetch(
+        `http://localhost:3001/planners/${plannerId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        dispatch({
+          type: DELETE_PLANNER,
+          payload: plannerId,
+        });
+        console.log("Planner deleted successfully");
+      } else {
+        console.log("Error deleting planner");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+// export const renamePlannerAction = (plannerId, newTitle) => {
+//   return {
+//     type: RENAME_PLANNER,
+//     payload: {
+//       plannerId,
+//       newTitle,
+//     },
+//   };
+// };
+
+export const renamePlannerAction = (plannerId, newTitle) => {
+  return async (dispatch) => {
+    console.log("Renaming planner action called");
+    try {
+      const accessToken = localStorage.getItem("UserAccessToken");
+      const token = accessToken.split('"').join("");
+      const response = await fetch(
+        `http://localhost:3001/planners/${plannerId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ title: newTitle }), // Send the new title
+        }
+      );
+      console.log(newTitle);
+
+      if (response.ok) {
+        dispatch({
+          type: RENAME_PLANNER,
+          payload: {
+            plannerId,
+            newTitle,
+          },
+        });
+        console.log("Planner renamed successfully");
+      } else {
+        console.log("Error renaming planner");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const duplicatePlannerAction = (plannerId, newTitle) => {
+  return async (dispatch) => {
+    try {
+      const accessToken = localStorage.getItem("UserAccessToken");
+      const token = accessToken.split('"').join("");
+      const response = await fetch(
+        `http://localhost:3001/planners/duplicate/${plannerId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ title: newTitle }), // Send the new title
+        }
+      );
+
+      if (response.ok) {
+        const duplicatedPlanner = await response.json();
+        dispatch({
+          type: DUPLICATE_PLANNER,
+          payload: duplicatedPlanner,
+        });
+        console.log("Planner duplicated successfully");
+      } else {
+        console.log("Error duplicating planner");
+      }
+    } catch (error) {
+      console.error("Error duplicating planner:", error);
+    }
+  };
+};
 // export const getCurrentPlanner = () => {
 //   console.log("getCurrentPlanner is called");
 //   return async (dispatch, getState) => {
