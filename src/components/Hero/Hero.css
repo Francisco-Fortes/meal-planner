@@ -3,5 +3,6 @@
   background-image: url("background4.jpg");
   background-size: cover;
   background-position: center;
-  border-top: solid 4px white;
+  border-top: solid 5px white;
+  border-bottom: solid 5px white;
 }
