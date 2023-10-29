@@ -7,6 +7,7 @@ function MealPlanner() {
 
   return (
     <div>
+      <h3>WEEK 1</h3>
       <Table responsive="sm">
         <thead>
           <tr>

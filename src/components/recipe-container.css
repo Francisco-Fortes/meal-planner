@@ -10,8 +10,10 @@
 }
 
 .recipe-image {
-  height: 20rem;
-  background-repeat: no-repeat;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  height: 100%;
+  object-fit: cover;
 }
 
 .recipe-title {

@@ -19,11 +19,14 @@ function RecipePage() {
 
   return (
     <Container fluid className="recipe-container">
-      <Row>
-        <Col
+      <Row className="justify-content-center">
+        {/* <Col
           className="recipe-image"
           style={{ backgroundImage: `url(${recipe.picture})` }}
-        ></Col>
+        ></Col> */}
+        <Col className="recipe-image">
+          <img src={recipe.picture} alt={recipe.title} />
+        </Col>
         <div className="recipe-info">
           <h2>{recipe.title}</h2>
           <p className="recipe-author">
